@@ -46,9 +46,8 @@ def load_task_from_file():
             tasks.append(line.strip("\n"))
 
         file.close()
-    except:
-        print("Error")
-
+    except FileNotFoundError:
+        return
 
 # ----------------my program---------------------------
 load_task_from_file()
