@@ -1,8 +1,5 @@
-
-from re import T
-
-
 user_choice = 0
+user_exception = True
 
 tasks = []
 
@@ -50,28 +47,69 @@ def load_task_from_file():
         return
 
 
-# ----------------my program---------------------------
+def try_again_message():
+    print()
+    print("Wrong value entered")
+    print("Try again !\n")
+
+
+def user_choice_to_leave():
+    user_exception = False
+
+    while (not user_exception):
+        print("Do you wanna continue: Y / N")
+        try:
+            user_exception_continue = input()
+        except:
+            print("Continue")
+
+        if user_exception_continue.capitalize() == "Y":
+            user_exception = True
+        elif user_exception_continue.capitalize() == "N":
+            # terminates the program
+            user_choice = 5                                      
+            print("See yaa")
+            break
+        else:
+            print("Try again, again xd")
+
+
+
+# ----------------my-program---------------------------
+
 load_task_from_file()
 
 while(user_choice != 5):
     if user_choice == 1:
         show_tasks()
 
-    if user_choice == 2:
+    elif user_choice == 2:
         add_task()
 
-    if user_choice == 3:
+    elif user_choice == 3:
         delete_task()
 
-    if user_choice == 4:
+    elif user_choice == 4:
         save_task_to_file()
+    
+    elif user_choice == 0:
+        print()
+        print("Task manager, choice the option ..")
 
-    print()
-    print("1. Show tasks")
-    print("2. Add task")
-    print("3. Delete task")
-    print("4. Save changes to file")
-    print("5. Exit")
-    print("---------------------------")
+    else:
+        try_again_message()
+        user_choice_to_leave()
 
-    user_choice = int(input("Choice number: "))
+    if (user_exception): 
+        print()
+        print("1. Show tasks")
+        print("2. Add task")
+        print("3. Delete task")
+        print("4. Save changes to file")
+        print("5. Exit")
+        print("---------------------------")
+        try:
+            user_choice = int(input("Choice number: "))
+        except ValueError:
+            try_again_message()
+
