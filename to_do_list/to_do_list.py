@@ -1,7 +1,7 @@
 user_choice = 0
 user_exception = True
 
-tasks = []
+tasks = [] # list
 
 
 def show_tasks():
@@ -67,20 +67,50 @@ def user_choice_to_leave():
             user_exception = True
         elif user_exception_continue.capitalize() == "N":
             # terminates the program
-            user_choice = 5                                      
+            user_choice = 5
             print("See yaa")
             break
         else:
             print("Try again, again xd")
 
+def print_menu():
+    print()
+    print("1. Show tasks")
+    print("2. Add task")
+    print("3. Delete task")
+    print("4. Save changes to file")
+    print("5. Exit")
+    print("---------------------------")
 
+
+def automatic_save_on_exit():
+    print("Do you wanna save program Y/N")
+    save_program_loop = True
+    while(save_program_loop):
+        try:
+            user_exception_continue_to_save = input()
+        except:
+            print("Continue")
+
+        if user_exception_continue_to_save.capitalize() == "Y":
+            save_task_to_file()
+            save_program_loop = False
+        elif user_exception_continue_to_save.capitalize() == "N":
+            print("See yaa soon")
+            save_program_loop = False
+        else:
+            print("Try again, again xd")
 
 # ----------------my-program---------------------------
-
 load_task_from_file()
 
 while(user_choice != 5):
-    if user_choice == 1:
+
+    if user_choice == 0:
+        print()
+        print("Task manager, choice the option ..")
+
+    elif user_choice == 1:
         show_tasks()
 
     elif user_choice == 2:
@@ -91,25 +121,16 @@ while(user_choice != 5):
 
     elif user_choice == 4:
         save_task_to_file()
-    
-    elif user_choice == 0:
-        print()
-        print("Task manager, choice the option ..")
 
     else:
         try_again_message()
         user_choice_to_leave()
 
-    if (user_exception): 
-        print()
-        print("1. Show tasks")
-        print("2. Add task")
-        print("3. Delete task")
-        print("4. Save changes to file")
-        print("5. Exit")
-        print("---------------------------")
+    if (user_exception):
+        print_menu()
         try:
             user_choice = int(input("Choice number: "))
         except ValueError:
             try_again_message()
 
+automatic_save_on_exit()
