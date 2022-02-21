@@ -1,14 +1,13 @@
-user_choice = 0
-user_exception = True
-
-tasks = [] # list
+import os
+tasks = []  # list
 
 
 def show_tasks():
-    task_index = 0
-    for task in tasks:
-        print(task + " [" + str(task_index) + "]")
-        task_index += 1
+    if len(tasks) > 0:
+        for num, task in enumerate(tasks):
+            print("[" + str(num) + "] " + task)
+    else:
+        print('There is no tasks')
 
 
 def add_task():
@@ -18,63 +17,54 @@ def add_task():
 
 
 def delete_task():
-    task_indx = int(input("Enter the index of the task to be deleted: "))
+    task_indx = input("Enter the index of the task to be deleted: ")
 
-    if task_indx < 0 or task_indx > (len(tasks) - 1):
-        print("!!! A task with this index does not exist !!!")
-        return
-
-    tasks.pop(task_indx)
-    print("Task was deleted")
-
-
-def save_task_to_file():
-    file = open("tasks.txt", "w")
-    for task in tasks:
-        file.write(task + "\n")
-    file.close()
+    if (task_indx.isnumeric() == True):
+        task_indx = int(task_indx)
+        if task_indx >= 0 and task_indx < len(tasks):
+            tasks.pop(task_indx)
+            print("Task was deleted")
+        else:
+            print("!!! A task with this index does not exist !!!")
+    else:
+        print('task id has to be numeric, provide correct value')
 
 
-def load_task_from_file():
+def save_tasks_to_file():
+    with open("tasks.txt", "w") as file:
+        for task in tasks:
+            file.write(task + "\n")
+    print("Save done")
+
+
+def load_tasks_from_file():
     try:
-        file = open("tasks.txt")
-
-        for line in file.readlines():
-            tasks.append(line.strip("\n"))
-
-        file.close()
+        with open("tasks.txt") as file:
+            for line in file.readlines():
+                tasks.append(line.strip("\n"))
     except FileNotFoundError:
-        return
+        print('No previous tasks loaded')
 
 
 def try_again_message():
-    print()
-    print("Wrong value entered")
-    print("Try again !\n")
+    print("\n Wrong value. try again... \n")
 
 
 def user_choice_to_leave():
-    user_exception = False
-
-    while (not user_exception):
-        print("Do you wanna continue: Y / N")
-        try:
-            user_exception_continue = input()
-        except:
-            print("Continue")
-
-        if user_exception_continue.capitalize() == "Y":
-            user_exception = True
-        elif user_exception_continue.capitalize() == "N":
-            # terminates the program
-            user_choice = 5
-            print("See yaa")
-            break
+    user_choice = 'not answered'
+    while(user_choice.capitalize() != 'Y' and user_choice.capitalize() != 'N'):
+        user_choice = input("Do you wanna leave program [Y/N]: ")
+        if user_choice.capitalize() == "Y":
+            return True
+        elif user_choice.capitalize() == "N":
+            user_choice = 'not answered'
+            return False
         else:
-            print("Try again, again xd")
+            print("Not correct answer")
+
 
 def print_menu():
-    print()
+    print("---------------------------")
     print("1. Show tasks")
     print("2. Add task")
     print("3. Delete task")
@@ -84,27 +74,30 @@ def print_menu():
 
 
 def automatic_save_on_exit():
-    print("Do you wanna save program Y/N")
-    save_program_loop = True
-    while(save_program_loop):
-        try:
-            user_exception_continue_to_save = input()
-        except:
-            print("Continue")
-
-        if user_exception_continue_to_save.capitalize() == "Y":
-            save_task_to_file()
-            save_program_loop = False
-        elif user_exception_continue_to_save.capitalize() == "N":
-            print("See yaa soon")
-            save_program_loop = False
+    user_choice = 'not answered'
+    while(user_choice.capitalize() != 'Y' and user_choice.capitalize() != 'N'):
+        user_choice = input('Do you wanna save program [Y/N]: ')
+        if user_choice.capitalize() == 'Y':
+            save_tasks_to_file()
+        elif user_choice.capitalize() == 'N':
+            pass  # continue
         else:
-            print("Try again, again xd")
+            print("Not correct answer")
+    print("See you soon")
+
 
 # ----------------my-program---------------------------
-load_task_from_file()
+load_tasks_from_file()
 
+user_choice = 0
+print_menu()
 while(user_choice != 5):
+
+    try:
+        user_choice = int(input("Choice number: "))
+        os.system('cls')
+    except ValueError:
+        print("Enter correct value again")
 
     if user_choice == 0:
         print()
@@ -120,17 +113,17 @@ while(user_choice != 5):
         delete_task()
 
     elif user_choice == 4:
-        save_task_to_file()
+        save_tasks_to_file()
+
+    elif user_choice == 5:
+        if user_choice_to_leave():
+            break
+        else:
+            user_choice = 0
 
     else:
         try_again_message()
-        user_choice_to_leave()
 
-    if (user_exception):
-        print_menu()
-        try:
-            user_choice = int(input("Choice number: "))
-        except ValueError:
-            try_again_message()
+    print_menu()
 
 automatic_save_on_exit()
