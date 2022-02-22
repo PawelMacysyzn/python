@@ -1,3 +1,4 @@
 Granie w gry,    3,    
 Pracowanie na dematic,    1,    
 Pisanie kodu,    6,    
+Odnoszenie sukcesow w programowaniu,    6,    

@@ -1,4 +1,7 @@
+from ast import Pass
 import os
+import sys  # end all program
+
 from posixpath import split
 tasks = []  # list [task_row_1, task_row2 ..]
 
@@ -57,27 +60,38 @@ def delete_task():
 
 
 def save_tasks_to_file():
-    with open("tasks.txt", "w") as file:
-        for task_row in tasks:
-            for task in task_row:
-                file.write(task + ",    ")
-            file.write("\n")
-    print("Save done")
+    print("If you want to quit, enter \"QUIT\"")
+    name_file = input("Enter name for file: ")
+    if(not(name_file.upper() == "QUIT")):
+        with open(name_file + ".txt", "w") as file:
+            for task_row in tasks:
+                for task in task_row:
+                    file.write(task + ",    ")
+                file.write("\n")
+        print("Save done")
+    else:
+        pass
 
 
 def load_tasks_from_file():
-    try:
-        print("File was opened..\n")
-        with open("tasks.txt") as file:
-            lines = file.readlines()
+    while(True):
+        try:
+            print("If you wanna quit, press \"Q\"")
+            name_file = input("Indicate the file name: ")
 
-        for task_row in lines:
-            temp = task_row.strip().strip(",").split(",    ")
-            tasks.append(temp)
+            if(name_file.upper() == "Q"):
+                sys.exit(0)      
 
-    except FileNotFoundError:
-        print('No previous tasks loaded')
+            with open(name_file + ".txt") as file:
+                lines = file.readlines()
+            print("File was opened: ")
 
+            for task_row in lines:
+                temp = task_row.strip().strip(",").split(",    ")
+                tasks.append(temp)
+            break
+        except FileNotFoundError:
+            print('No previous tasks loaded')
 
 def try_again_message():
     print("\n Wrong value. try again... \n")
