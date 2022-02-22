@@ -1,47 +1,80 @@
 import os
-tasks = []  # list
+from posixpath import split
+tasks = []  # list [task_row_1, task_row2 ..]
+
+# tasks = [['Granie w gry', '6'], ['Pracowanie na dematic', '1']]
 
 
 def show_tasks():
     if len(tasks) > 0:
         for num, task in enumerate(tasks):
-            print("[" + str(num) + "] " + task)
+            print("[" + str(num) + "] " + task[0] +
+                  "\t Priority: (" + task[1] + ")")
     else:
         print('There is no tasks')
 
 
 def add_task():
-    task = input("Enter the task: ")
-    tasks.append(task)
+    task_row = []
+    task = input("Enter the activity: ")
+    task_row.append(task)
+
+    task = input("Choose priority <1 .. 6>: ")
+    while (not(int(task) >= 1 and int(task) <= 6)):  # if not <1 .. 6>
+        print("Incorect priority!")
+        task = input("Choose priority: <1 .. 6>")
+    task_row.append(task)
+
+    tasks.append(task_row)
     print("Task was added !")
 
 
 def delete_task():
-    task_indx = input("Enter the index of the task to be deleted: ")
+    delete_task_exit = True
+    while(delete_task_exit):
+        print("Write \"SHOW\" to display the tasks")
+        print("Press \"R\" to exit")
 
-    if (task_indx.isnumeric() == True):
-        task_indx = int(task_indx)
-        if task_indx >= 0 and task_indx < len(tasks):
-            tasks.pop(task_indx)
-            print("Task was deleted")
+        task_indx = input("Enter the index of the task to be deleted: ")
+
+        if (task_indx.isnumeric() == True):
+            task_indx = int(task_indx)
+            os.system('cls')
+            if task_indx >= 0 and task_indx < len(tasks):
+                tasks.pop(task_indx)
+                print("Task was deleted\n")
+            else:
+                print("!!! A task with this index does not exist !!!\n")
+        elif (task_indx.capitalize() == 'R'):
+            delete_task_exit = False
+            os.system('cls')
+        elif (task_indx.upper() == 'SHOW'):
+            os.system('cls')
+            show_tasks()
+            print()
         else:
-            print("!!! A task with this index does not exist !!!")
-    else:
-        print('task id has to be numeric, provide correct value')
+            print('task id has to be numeric, provide correct value')
 
 
 def save_tasks_to_file():
     with open("tasks.txt", "w") as file:
-        for task in tasks:
-            file.write(task + "\n")
+        for task_row in tasks:
+            for task in task_row:
+                file.write(task + ",    ")
+            file.write("\n")
     print("Save done")
 
 
 def load_tasks_from_file():
     try:
+        print("File was opened..\n")
         with open("tasks.txt") as file:
-            for line in file.readlines():
-                tasks.append(line.strip("\n"))
+            lines = file.readlines()
+
+        for task_row in lines:
+            temp = task_row.strip().strip(",").split(",    ")
+            tasks.append(temp)
+
     except FileNotFoundError:
         print('No previous tasks loaded')
 
