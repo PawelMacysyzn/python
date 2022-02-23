@@ -1,4 +1,4 @@
-Granie w gry,    3,    
-Pracowanie na dematic,    1,    
-Pisanie kodu,    6,    
-Odnoszenie sukcesow w programowaniu,    6,    
+Granie w gry,    4,    HOME,    IN PROGRES,    
+Pracowanie na dematic,    3,    WORK,    IN PROGRES,    
+Pisanie kodu,    6,    HOME,    IN PROGRES,    
+Odnoszenie sukcesow w programowaniu,    6,    WORK,    TO DO,    
