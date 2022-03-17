@@ -59,11 +59,13 @@ while True:
     screen.blit(player_sprite.image, player_sprite.rect)
 
     # collision with obstacle rect
-    # # collid_sprite_with_rect(player_sprite, obstacle_sprite)
+    if False:
+        collid_sprite_with_rect(player_sprite, obstacle_sprite)
 
     # collision with obstacle mask
-    collid_sprite_with_mask(player_mask, obstacle_mask,
-                            obstacle_sprite.rect[0], obstacle_sprite.rect[1], player_sprite.rect.left, player_sprite.rect.top, player_sprite.image)
+    if True:
+        collid_sprite_with_mask(player_mask, obstacle_mask,
+                                obstacle_sprite.rect[0], obstacle_sprite.rect[1], player_sprite.rect.left, player_sprite.rect.top, player_sprite.image)
 
     pygame.display.update()
     clock.tick(60)
