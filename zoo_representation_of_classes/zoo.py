@@ -49,6 +49,24 @@ class Lew(Zwierze):
         return "Lew"
     pass
 
+class Zwierze_inne:
+    def __init__(self, wiek) -> None:
+        self.wiek = wiek
+
+    @property
+    def wiek(self):
+        return self.__wiek
+    @wiek.setter
+    def wiek(self, wiek):
+        if wiek < 0:
+            self.__wiek = 0
+        elif wiek > 200:
+            self.__wiek = 200
+        else:
+            self.__wiek = wiek
+
+
+
 
 def nowy_rok(zoo):
     for zwierze in zoo:
@@ -78,6 +96,12 @@ def main():
     # nowy_rok(zoo)
     # przedstaw_zwierzeta(zoo)
 
+    jakis_zwierz_inny = Zwierze_inne(202)
+    print(jakis_zwierz_inny.wiek)
+    jakis_zwierz_inny.wiek = -10
+    print(jakis_zwierz_inny.wiek)
+    jakis_zwierz_inny.wiek = 30
+    print(jakis_zwierz_inny.wiek)
 
 if __name__ == "__main__":
     main()
