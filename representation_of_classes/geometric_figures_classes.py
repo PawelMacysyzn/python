@@ -1,90 +1,84 @@
+from abc import ABC, abstractmethod
 import math
 
 
-class Circle():
+class Figure(ABC):
+    def print_figure(self):
+        arg_1 = self.__class__.__name__
+        arg_2 = ": {:.2f} m^2" .format(self.surface_area())
+        arg_3 = ", {:.2f} m" .format(self.perimeter())
+        arg_4 = " [surf., perimeter]"
+        print(arg_1, arg_2, arg_3, arg_4)
+
+    @abstractmethod
+    def surface_area(self):
+        pass
+
+    @abstractmethod
+    def perimeter(self):
+        pass
+
+
+class Circle(Figure):
     def __init__(self, radius) -> None:
         self.radius = radius
-        self.count_surface_area()
-        self.count_perimeter()
 
-    def count_surface_area(self):
-        self.surface_area = math.pi * (self.radius**2)
-        pass
+    def surface_area(self):
+        return math.pi * (self.radius**2)
 
-    def count_perimeter(self):
-        self.perimeter = 2 * self.radius * math.pi
-        pass
-
-    def print_surface_area(self):
-        print(self.__class__.__name__, ":", "%3.2f" % self.surface_area, "m^2")
-        print("%3.2f" % self.perimeter, "m")
-        pass
+    def perimeter(self):
+        return 2 * self.radius * math.pi
 
 
-class Squares(Circle):
+class Squares(Figure):
     def __init__(self, side_a) -> None:
         self.side_a = side_a
-        self.count_surface_area()
-        self.count_perimeter()
-        pass
 
-    def count_surface_area(self):
-        self.surface_area = self.side_a * self.side_a
-        pass
+    def surface_area(self):
+        return self.side_a * self.side_a
 
-    def count_perimeter(self):
-        self.perimeter = 4 * self.side_a
-        pass
+    def perimeter(self):
+        return 4 * self.side_a
 
 
 class Rectangle(Squares):
     def __init__(self, side_a, side_b) -> None:
-        self.side_a = side_a
+        super().__init__(side_a)
         self.side_b = side_b
-        self.count_surface_area()
-        self.count_perimeter()
-        pass
 
-    def count_surface_area(self):
-        self.surface_area = self.side_a * self.side_b
-        pass
+    def surface_area(self):
+        return self.side_a * self.side_b
 
-    def count_perimeter(self):
-        self.perimeter = 2 * self.side_a * 2 * self.side_b
-        pass
+    def perimeter(self):
+        return 2 * self.side_a + 2 * self.side_b
 
 
-class RightTriangle(Circle):
+class RightTriangle(Squares):
     def __init__(self, side_a, side_h) -> None:
-        self.side_a = side_a
+        super().__init__(side_a)
         self.side_h = side_h
-        self.count_surface_area()
-        self.count_perimeter()
-        pass
 
-    def count_surface_area(self):
-        self.surface_area = self.side_a * self.side_h / 2
-        pass
+    def surface_area(self):
+        return self.side_a * self.side_h / 2
 
-    def count_perimeter(self):
+    def perimeter(self):
         if self.side_a == self.side_h:
-            self.perimeter = self.side_a + \
+            return self.side_a + \
                 self.side_a + (self.side_a * math.sqrt(2))
         else:
             self.side_c = math.sqrt(
                 self.side_a*self.side_a + self.side_h*self.side_h)
-            self.perimeter = self.side_c + self.side_a + self.side_h
-        pass
+            return self.side_c + self.side_a + self.side_h
 
 
-x1 = Circle(2)
-x1.print_surface_area()
+x1 = Circle(10)
+x1.print_figure()
 
-x2 = Squares(2)
-x2.print_surface_area()
+x2 = Squares(10)
+x2.print_figure()
 
-x3 = Rectangle(2, 3)
-x3.print_surface_area()
+x3 = Rectangle(10, 5)
+x3.print_figure()
 
-x4 = RightTriangle(2, 3)
-x4.print_surface_area()
+x4 = RightTriangle(10, 5)
+x4.print_figure()
