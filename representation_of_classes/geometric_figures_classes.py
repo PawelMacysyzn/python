@@ -4,11 +4,13 @@ import math
 
 class Figure(ABC):
     def print_figure(self):
-        arg_1 = self.__class__.__name__
-        arg_2 = ": {:.2f} m^2" .format(self.surface_area())
-        arg_3 = ", {:.2f} m" .format(self.perimeter())
-        arg_4 = " [surf., perimeter]"
-        print(arg_1, arg_2, arg_3, arg_4)
+        self.surf = self.surface_area()
+        self.perim = self.perimeter()
+        self.arg_1 = self.__class__.__name__
+        self.arg_2 = ": {:.2f} m^2" .format(self.surf)
+        self.arg_3 = ", {:.2f} m" .format(self.perim)
+        self.arg_4 = " [surf., perimeter]"
+        print(self.arg_1, self.arg_2, self.arg_3, self.arg_4)
 
     @abstractmethod
     def surface_area(self):
@@ -74,14 +76,14 @@ class RightTriangle(Squares):
 def sum_surface_areas(list_of_figures):
     sum = 0
     for figure in list_of_figures:
-        sum += figure.surface_area()
+        sum += figure.surf
     print("Sum of all surface areas: {:.2f} m^2" .format(sum))
 
 
 def sum_perimeters(list_of_figures):
     sum = 0
     for figure in list_of_figures:
-        sum += figure.perimeter()
+        sum += figure.perim
     print("Sum of all perimeters: {:.2f} m" .format(sum))
 
 
@@ -101,3 +103,4 @@ list_of_figures = [x1, x2, x3, x4]
 
 sum_surface_areas(list_of_figures)
 sum_perimeters(list_of_figures)
+
