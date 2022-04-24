@@ -71,6 +71,20 @@ class RightTriangle(Squares):
             return self.side_c + self.side_a + self.side_h
 
 
+def sum_surface_areas(list_of_figures):
+    sum = 0
+    for figure in list_of_figures:
+        sum += figure.surface_area()
+    print("Sum of all surface areas: {:.2f} m^2" .format(sum))
+
+
+def sum_perimeters(list_of_figures):
+    sum = 0
+    for figure in list_of_figures:
+        sum += figure.perimeter()
+    print("Sum of all perimeters: {:.2f} m" .format(sum))
+
+
 x1 = Circle(10)
 x1.print_figure()
 
@@ -82,3 +96,8 @@ x3.print_figure()
 
 x4 = RightTriangle(10, 5)
 x4.print_figure()
+
+list_of_figures = [x1, x2, x3, x4]
+
+sum_surface_areas(list_of_figures)
+sum_perimeters(list_of_figures)
