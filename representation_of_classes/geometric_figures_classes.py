@@ -22,10 +22,10 @@ class Circle():
 
 
 class Squares(Circle):
-    def __init__(self, side_a) -> None:
-        self.side_a = side_a
-        self.count_surface_area()
-        self.count_perimeter()
+    def __init__(new_self, side_a) -> None:
+        new_self.side_a = side_a
+        new_self.count_surface_area()
+        new_self.count_perimeter()
         pass
 
     def count_surface_area(self):
