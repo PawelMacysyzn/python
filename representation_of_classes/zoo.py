@@ -7,10 +7,10 @@ class Zwierze(ABC):
         self.wiek = wiek
         self.waga = waga
 
-    @abstractmethod # tutaj wymuszamy implementację tej metody w klasach pochodnych
+    @abstractmethod  # tutaj wymuszamy implementację tej metody w klasach pochodnych
     def nazwa_gatunku(self):
         pass
-    
+
     def przedstaw_sie(self):
         print(
             f"Jestem {self.nazwa_gatunku()}, Mam na imię {self.nazwa}, mam {self.wiek} lat oraz wage {self.waga} kg.")
@@ -33,8 +33,6 @@ class Papuga(Zwierze):
         return "Papuga"
     pass
 
-
-
     def __init__(self, nazwa, wiek, waga, kolor):
         super().__init__(nazwa, wiek, waga)
         self.kolor = kolor
@@ -49,6 +47,7 @@ class Lew(Zwierze):
         return "Lew"
     pass
 
+
 class Zwierze_inne:
     def __init__(self, wiek) -> None:
         self.wiek = wiek
@@ -56,6 +55,7 @@ class Zwierze_inne:
     @property
     def wiek(self):
         return self.__wiek
+
     @wiek.setter
     def wiek(self, wiek):
         if wiek < 0:
@@ -64,8 +64,6 @@ class Zwierze_inne:
             self.__wiek = 200
         else:
             self.__wiek = wiek
-
-
 
 
 def nowy_rok(zoo):
@@ -102,6 +100,7 @@ def main():
     print(jakis_zwierz_inny.wiek)
     jakis_zwierz_inny.wiek = 30
     print(jakis_zwierz_inny.wiek)
+
 
 if __name__ == "__main__":
     main()
