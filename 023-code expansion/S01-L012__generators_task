@@ -1,0 +1,20 @@
+
+def count_gen(gen):
+    counter = 0
+    for _ in gen:
+        counter += 1
+    return counter
+    
+ports = ['WAW', 'KRK', 'GDN', 'KTW', 'WMI', 'WRO', 'POZ', 'RZE', 'SZZ',
+         'LUZ', 'BZG', 'LCJ', 'SZY', 'IEG', 'RDO']
+
+gen = ((start, stop) for start in ports for stop in ports)
+print(count_gen(gen)) # 225
+
+
+gen = ((start, stop) for start in ports for stop in ports if start != stop)
+print(count_gen(gen)) # 210
+
+
+gen = ((start, stop) for start in ports for stop in ports if start < stop)
+print(count_gen(gen)) # 105
