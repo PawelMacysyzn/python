@@ -29,7 +29,7 @@ Function returned 20000
 
 
 def old_way():
-
+    # raw function
     def ChangeSalary(emp_name, new_salary, is_bonus = False):
         print('CHANGING SALARY FOR {} TO {} AS BONUS={}'.format(emp_name, new_salary, is_bonus))
         return new_salary
@@ -40,7 +40,7 @@ def old_way():
     20000
     '''
     # -----------------------------------------------------------
-    """
+    
     def CreateFunctionWithWrapper(func):
         def func_with_wrapper(*args, **kwargs):
             print('-'*10)
@@ -51,13 +51,12 @@ def old_way():
 
     ChangeSalaryWithWithLog = CreateFunctionWithWrapper(ChangeSalary)
     print(ChangeSalaryWithWithLog('Johnson', 20000, True))
-    ''''
+    '''
     ----------
     CHANGING SALARY FOR Johnson TO 20000 AS BONUS=True
     ++++++++++
     20000
     '''
-    """
     # -----------------------------------------------------------
     print('*'*55)
 

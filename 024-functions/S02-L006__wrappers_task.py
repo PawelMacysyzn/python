@@ -1,24 +1,23 @@
 import time
 import functools
 
+iterations = 18
 
 
 def wrapper_time(a_function):
-    all_time = 0
     def a_wrapped_function(*args, **kwargs):
-        
-        time_start = time.time()   
+
+        time_start = time.time()
         v = a_function(*args, **kwargs)
         time_stop = time.time()
-        all_time += time_stop - time_start
-        return v  
+        print("Duration: {} sec".format(time_stop-time_start))
+        return v
 
     return a_wrapped_function
 
 
-@wrapper_time
 def get_sequence(n):
-    
+
     if n <= 0:
         return 1
     else:
@@ -27,4 +26,10 @@ def get_sequence(n):
             v += 1 + (get_sequence(i - 1) + get_sequence(i))/2
         return v
 
-print(get_sequence(11))
+
+@wrapper_time
+def wrapped_get_sequence(x):
+    return get_sequence(x)
+
+
+print(wrapped_get_sequence(iterations))

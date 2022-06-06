@@ -13,7 +13,7 @@ def div2(x):
 
 number = 8
 
-transformations =[double, square, div2, negative]
+transformations = [double, square, div2, negative]
 
 
 print('Starting transformations')
