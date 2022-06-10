@@ -26,3 +26,13 @@ cake muffin meringue biscuit eclair christmas pretzel other
 
 '''
 # ------------------------------------------
+
+# ------------------------------------------
+import glob
+
+
+f = glob.glob('c:/temp/*.txt')   # catalog/*.format_file
+
+print(f)
+# retururn list of .txt files 
+# ------------------------------------------
