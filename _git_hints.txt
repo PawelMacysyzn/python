@@ -1,0 +1,25 @@
+<<< Show remote branch
+
+$ git branch -a
+
+* main
+  remotes/origin/HEAD -> origin/main
+  remotes/origin/main
+  remotes/origin/test
+
+<<< Delete remote branch
+
+$ git branch -rd origin/test
+Deleted remote branch origin/test (was 2a14ef7).
+
+$ git push origin --delete test
+
+<<< Show remote branch
+
+$ git branch -a
+
+* main
+  remotes/origin/HEAD -> origin/main
+  remotes/origin/main
+
+#--------------------------------------------------
