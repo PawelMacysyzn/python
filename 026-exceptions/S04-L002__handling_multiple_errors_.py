@@ -1,6 +1,3 @@
-from decimal import DivisionByZero
-
-
 clients = {
     "INFO": 0.5,
     "DATA": 0.2,
@@ -21,7 +18,7 @@ try:
 
 except KeyError as e:
     print('Client {} is not on list {}.\nDetails:\n{}'.format(myClient, [client for client in clients.keys()], e))
-
+            
 except (ValueError, ZeroDivisionError) as e:
     print('There is a problem with entered value for ratio - is must be a number greater than 0.\nDetails:\n{}'.format(e))
 
