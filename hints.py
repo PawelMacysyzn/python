@@ -6,7 +6,6 @@ print(x:=int(input(mesage)) + 6)
 # ------------------------------------------
 
 
-
 # ------------------------------------------
 known_types = 'cake:muffin:meringue:biscuit:eclair:christmas:pretzel:other' # type<str>
 
@@ -27,6 +26,7 @@ cake muffin meringue biscuit eclair christmas pretzel other
 '''
 # ------------------------------------------
 
+
 # ------------------------------------------
 import glob
 
@@ -36,3 +36,40 @@ f = glob.glob('c:/temp/*.txt')   # catalog/*.format_file
 print(f)
 # retururn list of .txt files 
 # ------------------------------------------
+
+
+# ------------------------------------------
+# Infinite generator #
+
+def generator():
+    while True:
+        try:
+            yield 1
+            yield 2
+            yield 3
+        except StopIteration:
+            break
+
+d = generator()
+print(d.__next__()) #   1
+print(d.__next__()) #   2
+print(d.__next__()) #   3
+print(d.__next__()) #   1
+# ------------------------------------------
+
+
+# ------------------------------------------
+# Return a number between 3 and 9 (both included):
+import random
+
+print(random.randint(3, 9))
+# ------------------------------------------
+
+
+
+
+
+
+
+
+
