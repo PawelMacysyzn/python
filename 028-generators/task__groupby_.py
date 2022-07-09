@@ -1,4 +1,4 @@
-import os, itertools
+import os, itertools as it
 import types
 
 
@@ -9,37 +9,37 @@ def scantree(path: str):
     '''
     for entry in os.scandir(path):
 
-        if not entry.name.startswith('.') and entry.is_dir():
-            yield {'type':True,'name':os.path.join(path, entry.name)}
-            yield scantree(os.path.join(path, entry.name))
+        if entry.is_dir():
+            yield {'type':True,'path':os.path.join(path, entry.name)}
+            yield from scantree(os.path.join(path, entry.name))
 
-        elif not entry.name.startswith('.') and entry.is_file():
-            yield {'type':False,'name':os.path.join(path, entry.name)}
+        elif entry.is_file():
+            yield {'type':False,'path':os.path.join(path, entry.name)}
 
 listing = scantree(r'C:\Users\pmacyszyn_adm\Documents\python\python')
 
-for obj in listing:
+listing = sorted(listing, key= lambda x: x['type'])
 
-    if isinstance(obj, types.GeneratorType):
-        for o in obj:
-            print(o)
-    else:
-        print(obj)
-
-
-
+def scantree_print_elements(list: types.GeneratorType) -> None:
+    for e, element in enumerate(list):
+        if isinstance(element, types.GeneratorType):
+            scantree_print_elements(element)
+        else:
+            print('[{:3d}] {:4s} - {}'.format(e+1, 'Dir' if element['type'] else 'File', element['path']))
 
 
+scantree_print_elements(listing)
 
+# '''
+# [  1] File - C:\Users\pmacyszyn_adm\Documents\python\python\.git\.COMMIT_EDITMSG.swp
+# [  2] File - C:\Users\pmacyszyn_adm\Documents\python\python\.git\COMMIT_EDITMSG
+#                                     ...
+# [691] Dir  - C:\Users\pmacyszyn_adm\Documents\python\python\threading
+# [692] Dir  - C:\Users\pmacyszyn_adm\Documents\python\python\to_do_list
+# '''
 
-
-
-
-
-
-
-
-
+for key, elements in it.groupby(listing, key = lambda x: x['type']):
+    print('The Quantity of {:8s}: {}'.format('Catalogs' if key else 'Files', len(list(elements))))
 
 
 
