@@ -38,14 +38,15 @@ def grep_files(serch_string, files):
 
 file_generator = generate_files(path, file_extension)
 
+
 for file in grep_files(serch_string, file_generator):
     print(file)
 
 
-'''
-C:\Users\pmacyszyn_adm\Documents\python\python\025-class\S02-L011__decorating_with_class_.py
-C:\Users\pmacyszyn_adm\Documents\python\python\025-class\S02-L013__inheritance_.py
-'''
+# '''
+# C:\Users\pmacyszyn_adm\Documents\python\python\025-class\S02-L011__decorating_with_class_.py
+# C:\Users\pmacyszyn_adm\Documents\python\python\025-class\S02-L013__inheritance_.py
+# '''
 
 
 
