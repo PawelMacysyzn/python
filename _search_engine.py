@@ -1,9 +1,17 @@
-import os
+import os, csv
 import types
 from typing import List
 
 
-def scantree(path: str) -> types.GeneratorType:
+def generate_files_by_walk(path, file_extension: str = '.py'):
+    for dir_name, subdirs, filenames in os.walk(path):
+        for filename in filenames:
+            if filename.endswith(file_extension):
+                fullFileName = os.path.join(dir_name, filename)
+                yield fullFileName
+
+
+def generate_files_by_scandir(path: str) -> types.GeneratorType:
     '''
     * path (str) to the starting directory
     '''
@@ -12,10 +20,11 @@ def scantree(path: str) -> types.GeneratorType:
         if not entry.name.startswith('.'):
 
             if entry.is_dir():
-                yield from scantree(os.path.join(path, entry.name))
+                yield from generate_files_by_scandir(os.path.join(path, entry.name))
 
             elif entry.is_file():
                 yield os.path.join(path, entry.name)
+
 
 def grep_files(serch_string: str, files):
     '''
@@ -29,14 +38,35 @@ def grep_files(serch_string: str, files):
                 yield file
 
 
+def save_row_to_csv(*args, name_file: str = 'test.csv'):
+
+    with open(os.path.join(os.getcwd(), name_file), 'a', newline='') as file:
+
+        # create the csv writer
+        csvwriter = csv.writer(file, delimiter=';')
+
+
+        # write a row to the csv file
+        csvwriter.writerow([*args])
+        
+
+
+
+
 actual_path = os.getcwd()
-serch_string = 'typing'
-
-file_generator = scantree(actual_path)
+serch_string = ['typing']
 
 
-for e, each in enumerate(file_generator):
+
+
+open(os.path.join(os.getcwd(), 'test.csv'), "w").close()
+
+for e, each in enumerate(generate_files_by_walk(actual_path)):
     print(e+1, each)
+    save_row_to_csv(e+1, each)
+
+
+
 
 
 # Did not work #
