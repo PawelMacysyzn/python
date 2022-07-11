@@ -1,5 +1,6 @@
 import os, csv
 import types
+import itertools as it
 from typing import List
 
 
@@ -61,9 +62,12 @@ serch_string = ['typing']
 
 open(os.path.join(os.getcwd(), 'test.csv'), "w").close()
 
-for e, each in enumerate(generate_files_by_walk(actual_path)):
-    print(e+1, each)
-    save_row_to_csv(e+1, each)
+walk = generate_files_by_walk(actual_path)
+scandir = generate_files_by_scandir(actual_path)
+
+for e, (each_walk, each_scandir) in enumerate(it.zip_longest(walk, scandir, fillvalue= 'unknown')):
+    # print(e+1, each_walk, each_scandir)
+    save_row_to_csv(e+1, each_walk, each_scandir)
 
 
 
