@@ -225,6 +225,8 @@ print('-'*66)
 months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Ocy', 'Nov', 'Dec']
 plan = ['busy', 'busy', 'busy', 'busy', 'busy', 'busy', 'free', 'free']
 
+# iteruje jednoczesnie 2 elementy w jednej petli for #
+# iterates 2 elements simultaneously in one for loop #
 result = itertools.zip_longest(months, plan, fillvalue= 'unknown')
 for each in result:
     print(each)
