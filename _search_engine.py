@@ -1,8 +1,52 @@
 import os
 import csv
 import types
+import sys
 import itertools as it
 from typing import List
+
+
+def cmd_support() -> tuple:
+    '''
+    # Allows for cmd support
+    # Example:
+    py .\_search_engine.py --find 'looking_phrase'
+                or
+    py .\_search_engine.py -f 'looking_phrase'
+
+    * return tuple(actual_path, serch_string)
+
+    '''
+    actual_path = os.getcwd()
+
+    if len(sys.argv) <= 1:
+
+        # os.getcwd() returns current working directory of a proces
+        # zwraca bieżący katalog roboczy procesu
+        serch_string = 'glob'
+
+    else:
+
+        if len(sys.argv) > 3:
+
+            for e, each in enumerate(sys.argv):
+                print("[arg: {}] {:10s} {} ".format(
+                    e, sys.argv[e], type(sys.argv[e])))
+
+            raise Exception('Too many arguments !')
+
+        if sys.argv[1].lower() in ('--find','-f'):
+            pass
+        else:
+            raise Exception("You must give the command '--find' or '-f' !")
+
+        if not sys.argv[2].isnumeric():
+            serch_string = sys.argv[2]
+
+        else:
+            raise Exception("The second argument must be 'type str' !")
+
+    return (actual_path, serch_string)
 
 
 def generate_files_by_walk(path, file_extension: str = '.py') -> types.GeneratorType:
@@ -40,7 +84,7 @@ def grep_files(serch_string: str, files):
             with open(file) as open_file:
                 for line, line_of_file in enumerate(open_file.readlines()):
                     if serch_string in line_of_file.rstrip('\n'):
-                        yield 'File "{}", line {}, in <module>'.format(file, line+1)
+                        yield 'File "{}", line {}'.format(file, line+1)
     except Exception as exc:
         print(exc)
 
@@ -76,14 +120,10 @@ def print_the_lines_found(fun) -> None:
         print(e+1, each)
 
 
-actual_path = os.getcwd()
-serch_string = 'glob'
-
-
+actual_path, serch_string = cmd_support()
 
 
 # save_the_lines_found_to_csv()
-
 for each in grep_files(serch_string, generate_files_by_walk(actual_path)):
     # for each in grep_files(serch_string, generate_files_by_scandir(actual_path)):
     print(each)
