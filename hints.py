@@ -64,3 +64,51 @@ import random
 
 print(random.randint(3, 9))
 # ------------------------------------------
+
+
+# ------------------------------------------
+# new convenience notation for big numbers introduced #
+# With Python 3.6 (and PEP-515)
+
+number_with_ = 1_000_000
+print(number_with_) # 1000000
+
+# Stanowczo poprawia to czytelność kodu :), warto to stosować !
+
+# ------------------------------------------
+
+
+# ------------------------------------------
+# Using the dir() function to list methods in a class
+
+print(dir(str)) # show all methods in class str
+
+# ------------------------------------------
+
+
+# ------------------------------------------
+# The count() method returns the number of times the specified element appears in the list
+# For class List #
+
+numbers = [2, 3, 5, 2, 11, 2, 7]
+
+# check the number of occurrences of "2"
+count = numbers.count(2)
+
+print('Count of 2:', count)
+
+# Output: Count of 2: 3
+
+# ------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+ 
