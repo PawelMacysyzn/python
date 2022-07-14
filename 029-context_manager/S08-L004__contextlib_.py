@@ -52,6 +52,10 @@ with OnlyClose(Door('next room')) as door:
 '''
 #-------------------------------------
 '''
+
+# The closing function calls the close () method for the passed object
+# Funkcja closing wywoluje dla przekazanego obiektu metodę close()
+
 from urllib.request import urlopen
 from contextlib import closing
 
