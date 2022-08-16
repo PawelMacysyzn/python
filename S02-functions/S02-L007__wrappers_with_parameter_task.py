@@ -1,5 +1,5 @@
 import os, functools
-from datetime  import datetime as dt
+from datetime import datetime as dt
  
 
 def wrapper_with_log_file(logged_action, log_file_path):
@@ -23,7 +23,9 @@ def wrapper_with_log_file(logged_action, log_file_path):
 @wrapper_with_log_file('FILE_CREATE', r'c:/temp/file_create.txt')
 def create_file(path):
     print('creating file {}'.format(path))
-    open(path,"w+")
+    with open(path,"w+") as f:
+        f
+   
  
 @wrapper_with_log_file('FILE_DELETE', r'c:/temp/file_delete.txt')
 def delete_file(path):
