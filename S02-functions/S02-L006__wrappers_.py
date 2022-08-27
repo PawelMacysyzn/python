@@ -1,5 +1,5 @@
 import datetime
-import functools
+# import functools
 
 
 def CreateFunctionWithWrapper(func):
