@@ -28,12 +28,12 @@ if os.path.isfile(path):
     print("File {} exists".format(path))
     with open(path, 'r',encoding="utf-16") as f:
         content = f.read()
-    f.close()   
+    # f.close()   # unnecessary
 else:
     print("Creating a file {}, and filing with text".format(path))
     with open(path, 'x',encoding="utf-16") as f:
         f.write(text)        
-    f.close()
+    # f.close() # unnecessary
 
 
 # print_content(content)
