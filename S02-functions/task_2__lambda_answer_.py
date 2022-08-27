@@ -11,6 +11,8 @@ def split_list(list):
 
 print(split_list(menu))     # ['burger', 'cola', 'chips', 'sauce']
 
+print(list(map(lambda x: x[x.find(':')+1:], menu))) # ['burger', 'cola', 'chips', 'sauce']
+
 print(list(map(lambda x: x.split(':')[1],menu)))   # ['burger', 'cola', 'chips', 'sauce']
 
 print(list(map(lambda x: print(x.split(':')[1]), menu)))
