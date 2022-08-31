@@ -20,7 +20,8 @@ def show_cake_info_from_list(func):
 
         if type(*args) is list:
             for arg in list(args):
-                for ar in arg:
+                for e, ar in enumerate(arg):
+                    print('{}.'.format(e+1), end=' ')
                     func(ar)
 
         else:
