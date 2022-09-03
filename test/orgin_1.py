@@ -8,7 +8,7 @@ Przygotuj funkcje sprawdzającą czy osoba o przekazanym wieku jest osoba pełno
 '''
 
 
-def is_adult(age):
+def is_adult(age: int) -> bool:
     return age >= 18
 
 
@@ -27,3 +27,10 @@ def test_is_adult():
 def test_is_not_adult():
     assert not is_adult(17)
     assert not is_adult(3)
+
+
+
+'''
+put the command in cmd:
+py -m pytest .\orgin_1.py
+'''
