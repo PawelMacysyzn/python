@@ -11,9 +11,6 @@ Nie testuj sytułacji w której wpłacasz więcej niz to możliwe.
 '''
 
 
-from turtle import back
-
-
 class Bank:
     def __init__(self) -> None:
         self.amount = 0
