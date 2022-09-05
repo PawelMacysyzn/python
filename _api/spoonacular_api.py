@@ -1,8 +1,27 @@
 import requests
+import secrets_key
 
-import _generate_password_by_length
+def getRecipeByIngredients(ingredients):
+    payload = {
+        'fillIngredients': False,
+        'ingredients': ingredients,
+        'limitLicense': False,
+        'number': 5,
+        'ranking': 1
+    }
 
-url = 'https://api.spoonacular.com/recipes/random'
+
+    endpoint = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients"
 
 
-# print(_generate_password_by_length.generate_password(6))
+    headers={
+        "X-Mashape-Key": secrets_key.Spoonacular_key.API_KEY,
+        "X-Mashape-Host": "mashape host"
+    }
+
+    r = requests.get(endpoint, params=payload, headers=headers)
+    results = r.json()
+    title = results[0]['title']
+    print(title)
+
+getRecipeByIngredients('apple')

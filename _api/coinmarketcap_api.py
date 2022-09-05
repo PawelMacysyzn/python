@@ -6,7 +6,7 @@ url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/map'
 
 headers = {
     'Accepts': 'application/json',
-    'X-CMC_PRO_API_KEY': secrets_key.API_KEY,
+    'X-CMC_PRO_API_KEY': secrets_key.Coinmarketcap_key.API_KEY,
 }
 
 
