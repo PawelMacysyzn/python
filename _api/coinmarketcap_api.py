@@ -1,12 +1,12 @@
 import json
 import requests
-import secrets
+import secrets_key
 
 url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/map'
 
 headers = {
     'Accepts': 'application/json',
-    'X-CMC_PRO_API_KEY': secrets.API_KEY,
+    'X-CMC_PRO_API_KEY': secrets_key.API_KEY,
 }
 
 
