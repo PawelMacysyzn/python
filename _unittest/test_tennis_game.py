@@ -60,6 +60,18 @@ class TestTenisGame(unittest.TestCase):
         self._create_score(3, 1)
         self.assertEqual('Forty Fifteen', self.game.score)
 
+    def test_deuce(self):
+        self._create_score(4, 4)
+        self.assertEqual("Deuce", self.game.score)
+
+    # def test_deuce_when_both_scored_seven_times(self):
+    #     self._create_score(7, 7)
+    #     self.assertEqual("Deuce", self.game.score)
+
+    # def test_advanatage_p1_when_score_5_4(self):
+    #     self._create_score(5, 4)
+    #     self.assertEqual('Advantage P1', self.game.score)
+
     def _create_score(self, player_one_score, player_two_score):
         for _ in range(player_one_score):
             self.game.player_one_scored()
