@@ -1,4 +1,3 @@
-# python -m unittest _unittest\test_tennis_game.py
 
 import unittest
 from tennis_game import TennisGame
@@ -10,47 +9,59 @@ class TestTenisGame(unittest.TestCase):
         self.game = TennisGame()
 
     def test_something(self):
-        self.assertEqual("Love all", self.game.score)
+        inicial_score = self.game.score
+        self.assertEqual("Love all", inicial_score)
 
     def test_score_is_15_0_when_p1_scored_once(self):
-        self.game.player_one_scored()
+        self._create_score(1, 0)
         self.assertEqual('Fifteen Love', self.game.score)
-
-    def test_score_is_15_30_when_p1_scored_onceand_p2_scored_twice(self):
-        self.game.player_one_scored()
-        self.game.player_two_scored()
-        self.game.player_two_scored()
-        self.assertEqual('Fifteen Thirty', self.game.score)
 
     def test_score_is_30_0_when_p1_scored_twice(self):
-        self.game.player_one_scored()
-        self.game.player_one_scored()
+        self._create_score(2, 0)
         self.assertEqual('Thirty Love', self.game.score)
 
-    def test_score_is_30_15_when_p1_scored_twice_and_p2_scored_once(self):
-        self.game.player_one_scored()
-        self.game.player_one_scored()
-        self.game.player_two_scored()
-        self.assertEqual('Thirty Fifteen', self.game.score)
-
-    def test_score_is_40_15_when_p1_scored_three_and_p2_scored_once(self):
-        self.game.player_one_scored()
-        self.game.player_one_scored()
-        self.game.player_one_scored()
-        self.game.player_two_scored()
-        self.assertEqual('Forty Fifteen', self.game.score)
+    def test_score_is_40_0_when_p1_scored_three(self):
+        self._create_score(3, 0)
+        self.assertEqual('Forty Love', self.game.score)
 
     def test_score_is_0_15_when_p2_scored_once(self):
-        self.game.player_one_scored()
-        self.assertEqual('Fifteen Love', self.game.score)
+        self._create_score(0, 1)
+        self.assertEqual('Love Fifteen', self.game.score)
 
     def test_score_is_0_30_when_p2_scored_twice(self):
-        self.game.player_two_scored()
-        self.game.player_two_scored()
+        self._create_score(0, 2)
         self.assertEqual('Love Thirty', self.game.score)
 
     def test_score_is_0_40_when_p2_scored_three(self):
-        self.game.player_two_scored()
-        self.game.player_two_scored()
-        self.game.player_two_scored()
+        self._create_score(0, 3)
         self.assertEqual('Love Forty', self.game.score)
+
+    def test_game_for_p1_when_scored_four_times(self):
+        self._create_score(4, 0)
+        self.assertEqual('Game for P1', self.game.score)
+
+    def test_game_for_p2_when_scored_four_times(self):
+        self._create_score(0, 4)
+        self.assertEqual('Game for P2', self.game.score)
+
+    def test_score_is_15_15_when_p1_scored_once_and_p2_scored_once(self):
+        self._create_score(1, 1)
+        self.assertEqual('Fifteen all', self.game.score)
+
+    def test_score_is_15_30_when_p1_scored_once_and_p2_scored_twice(self):
+        self._create_score(1, 2)
+        self.assertEqual('Fifteen Thirty', self.game.score)
+
+    def test_score_is_30_15_when_p1_scored_twice_and_p2_scored_once(self):
+        self._create_score(2, 1)
+        self.assertEqual('Thirty Fifteen', self.game.score)
+
+    def test_score_is_40_15_when_p1_scored_three_and_p2_scored_once(self):
+        self._create_score(3, 1)
+        self.assertEqual('Forty Fifteen', self.game.score)
+
+    def _create_score(self, player_one_score, player_two_score):
+        for _ in range(player_one_score):
+            self.game.player_one_scored()
+        for _ in range(player_two_score):
+            self.game.player_two_scored()
