@@ -1,6 +1,10 @@
 import requests
 import secrets_key
 
+
+
+# url = 'https://api.spoonacular.com/food/products/search?query=yogurt&apiKey=API-KEY'
+
 def getRecipeByIngredients(ingredients):
     payload = {
         'fillIngredients': False,
