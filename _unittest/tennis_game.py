@@ -38,20 +38,14 @@ class TennisGame:
         if self._is_advantage():
             return f"Advantage {self._player_with_higest_score()}"
 
-        # if self._p1_score <= 3:
-        first_result = self._translate_score(self._p1_score)
-        # elif self._p1_score == 4:
-        #     return 'Game for P1'
+        # first_result = self._translate_score(self._p1_score)
+        # second_result = self._translate_score(self._p2_score)
 
         if self._p1_score == self._p2_score:
-            return f"{first_result} all"
+            return f"{self._translate_score(self._p1_score)} all"
 
-        # if self._p2_score <= 3:
-        second_result = self._translate_score(self._p2_score)
-        # elif self._p2_score == 4:
-        #     return 'Game for P2'
-
-        return f'{first_result} {second_result}'
+        return "{} {}".format(self._translate_score(self._p1_score),
+                              self._translate_score(self._p2_score))
 
     def _translate_score(self, player_score):
         if player_score == 0:
