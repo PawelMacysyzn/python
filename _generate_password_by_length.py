@@ -6,7 +6,7 @@ def generate_password(length):
     return ''.join(secrets.choice(alphabet) for i in range(length))
 
 def main():
-    print(generate_password(6))
+    print(generate_password(8))
 
 if __name__ == '__main__':
     main()
