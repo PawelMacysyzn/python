@@ -1,4 +1,5 @@
 '''
+recipe1
 Stuffed Shells
 
 TOTAL TIME
@@ -26,6 +27,7 @@ Torn basil leaves (about 2 sprigs) or 2 tablespoons chopped parsley (for garnish
 '''
 
 '''
+recipe2
 Spaghetti Aglio e Olio (Pasta With Garlic and Oil)
 
 TOTAL TIME
@@ -45,6 +47,7 @@ Ingredients
 '''
 
 '''
+recipe3
 Matar Paneer
 
 TOTAL TIME
@@ -87,16 +90,34 @@ class Food:
         self.servings = servings
         self.ingredients = ingredients.copy()
 
+    def init_name(recipe: str) -> str:
+        for name in open_ingredients(recipe):
+            print(name)
+            if name.upper().find("recipe".upper()) != -1:
+                return open_ingredients(recipe).__next__
 
-def open_ingredients():
+
+def open_ingredients(recipe):
     with open(os.path.abspath(__file__), 'r') as file:
-        for nr, line in enumerate(file):
-            if line.upper().find('ingredients'.upper()) != -1:
-                print(nr+1,'Yep')
-            if line.upper().find('class'.upper()) != -1:
-                return 'End'
-            print(line, end='')
-            
+        in_line = False  # for test
+        in_case = False  # for test
+        for line in file:
+
+            if line.upper().find("'''".upper()) != -1:
+                if in_line and in_case:
+                    return StopIteration
+                else:
+                    in_line = True
+
+            if in_line and line.upper().find(recipe.upper()) != -1:
+                in_case = True
+
+            if in_line and in_case:
+                if line != '\n':
+                    yield line
 
 
-open_ingredients()
+# for line in open_ingredients('recipe1'):
+#     print(line)
+
+Food.init_name('recipe2')
