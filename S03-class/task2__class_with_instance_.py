@@ -90,14 +90,14 @@ class Food:
         self.servings = servings
         self.ingredients = ingredients.copy()
 
-    def init_name(recipe: str) -> str:
-        for name in open_ingredients(recipe):
+    def init_name(self, recipe: str) -> str:
+        for name in self.open_ingredients(recipe):
             print(name)
             if name.upper().find("recipe".upper()) != -1:
-                return open_ingredients(recipe).__next__
+                return self.open_ingredients(recipe).__next__
 
 
-def open_ingredients(recipe):
+def open_ingredients(recipe) -> str:
     with open(os.path.abspath(__file__), 'r') as file:
         in_line = False  # for test
         in_case = False  # for test
@@ -117,7 +117,44 @@ def open_ingredients(recipe):
                     yield line
 
 
-# for line in open_ingredients('recipe1'):
-#     print(line)
+def get_list_of_recip(recipe: str) -> list:
+    selected_recip = list()
+    for line in open_ingredients(recipe):
+        selected_recip.append(line.rstrip('\n'))
+    return selected_recip
 
-Food.init_name('recipe2')
+
+def get_name_of_recipe(recipe: str) -> str:
+    list_of_recip = get_list_of_recip(recipe)
+    filter_object = list(filter(lambda a: 'recipe' in a, list_of_recip))
+    if len(filter_object) == 1:
+        return list_of_recip[list_of_recip.index(*filter_object)+1]
+
+
+def get_total_time(recipe: str) -> str:
+    list_of_recip = get_list_of_recip(recipe)
+    filter_object = list(filter(lambda a: 'TOTAL TIME' in a, list_of_recip))
+    if len(filter_object) == 1:
+        return list_of_recip[list_of_recip.index(*filter_object)+1]
+
+
+def get_kind_of_recipe(recipe: str) -> str:
+    list_of_kind = ['pasta', 'different']
+    for kind in list_of_kind:
+        if kind.upper() in get_name_of_recipe(recipe).upper():
+            return kind.capitalize()
+        else:
+            return list_of_kind[-1].capitalize()
+
+
+def main():
+    # for line in open_ingredients('recipe1'):
+    #     print(line, end='')
+    # x = get_kind_of_recipe('recipe1')
+    # x = get_list_of_recip('recipe1')
+    # print(x)
+    pass
+
+
+if __name__ == '__main__':
+    main()
