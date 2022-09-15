@@ -96,63 +96,75 @@ class Food:
             if name.upper().find("recipe".upper()) != -1:
                 return self.open_ingredients(recipe).__next__
 
+    @classmethod
+    def open_ingredients(cls, recipe) -> str:
+        with open(os.path.abspath(__file__), 'r') as file:
+            in_line = False  # for test
+            in_case = False  # for test
+            for line in file:
+                if line.upper().find("'''".upper()) != -1:
+                    if in_line and in_case:
+                        return StopIteration
+                    else:
+                        in_line = True
 
-def open_ingredients(recipe) -> str:
-    with open(os.path.abspath(__file__), 'r') as file:
-        in_line = False  # for test
-        in_case = False  # for test
-        for line in file:
+                if in_line and line.upper().find(recipe.upper()) != -1:
+                    in_case = True
 
-            if line.upper().find("'''".upper()) != -1:
                 if in_line and in_case:
-                    return StopIteration
-                else:
-                    in_line = True
+                    if line != '\n':
+                        yield line
 
-            if in_line and line.upper().find(recipe.upper()) != -1:
-                in_case = True
+    @classmethod
+    def get_list_of_recip(cls, recipe: str) -> list:
+        selected_recip = list()
+        for line in cls.open_ingredients(recipe):
+            selected_recip.append(line.rstrip('\n'))
+        return selected_recip
 
-            if in_line and in_case:
-                if line != '\n':
-                    yield line
+    @classmethod
+    def get_ingredients(cls, recipe: str) -> list:
+        list_of_recip = cls.get_list_of_recip(recipe)
+        filter_object = list(
+            filter(lambda a: 'Ingredients' in a, list_of_recip))
+        if len(filter_object) == 1:
+            return list_of_recip[list_of_recip.index(*filter_object)+1:]
 
+    @classmethod
+    def get_get_item(cls, item: str, recipe: str):
+        list_of_recip = cls.get_list_of_recip(recipe)
+        filter_object = list(filter(lambda a: item in a, list_of_recip))
+        if len(filter_object) == 1:
+            return list_of_recip[list_of_recip.index(*filter_object)+1]
 
-def get_list_of_recip(recipe: str) -> list:
-    selected_recip = list()
-    for line in open_ingredients(recipe):
-        selected_recip.append(line.rstrip('\n'))
-    return selected_recip
+    @classmethod
+    def get_name_of_recipe(cls, recipe: str) -> str:
+        return cls.get_get_item('recipe', recipe)
 
+    @classmethod
+    def get_total_time(cls, recipe: str) -> str:
+        return cls.get_get_item('TOTAL TIME', recipe)
 
-def get_name_of_recipe(recipe: str) -> str:
-    list_of_recip = get_list_of_recip(recipe)
-    filter_object = list(filter(lambda a: 'recipe' in a, list_of_recip))
-    if len(filter_object) == 1:
-        return list_of_recip[list_of_recip.index(*filter_object)+1]
+    @classmethod
+    def get_servings(cls, recipe: str) -> str:
+        return cls.get_get_item('SERVINGS', recipe)
 
-
-def get_total_time(recipe: str) -> str:
-    list_of_recip = get_list_of_recip(recipe)
-    filter_object = list(filter(lambda a: 'TOTAL TIME' in a, list_of_recip))
-    if len(filter_object) == 1:
-        return list_of_recip[list_of_recip.index(*filter_object)+1]
-
-
-def get_kind_of_recipe(recipe: str) -> str:
-    list_of_kind = ['pasta', 'different']
-    for kind in list_of_kind:
-        if kind.upper() in get_name_of_recipe(recipe).upper():
-            return kind.capitalize()
-        else:
-            return list_of_kind[-1].capitalize()
+    @classmethod
+    def get_kind_of_recipe(cls, recipe: str) -> str:
+        list_of_kind = ['pasta', 'different']
+        for kind in list_of_kind:
+            if kind.upper() in cls.get_name_of_recipe(recipe).upper():
+                return kind.capitalize()
+            else:
+                return list_of_kind[-1].capitalize()
 
 
 def main():
     # for line in open_ingredients('recipe1'):
     #     print(line, end='')
     # x = get_kind_of_recipe('recipe1')
-    # x = get_list_of_recip('recipe1')
-    # print(x)
+    x = Food.get_kind_of_recipe('recipe3')
+    print(x)
     pass
 
 
