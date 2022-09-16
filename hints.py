@@ -103,9 +103,19 @@ print('Count of 2:', count)
 
 
 
+# ------------------------------------------
+# Show name variable
+# Pokazuje nazwe zmiennej
+
+var_1 = 0
+var_2 = 1
+
+print([k for k, v in locals().items() if k == 'var_1' and v == var_1][0])
+# or
+print(*[k for k, v in locals().items() if k == 'var_1' and v == var_1])
 
 
-
+# ------------------------------------------
 
 
 

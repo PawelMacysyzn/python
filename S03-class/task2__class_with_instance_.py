@@ -83,18 +83,21 @@ Ingredients
 
 import os
 class Food:
-    def __init__(self, name, kind, total_time, servings, ingredients) -> None:
-        self.name = name
-        self.kind = kind
-        self.total_time = total_time
-        self.servings = servings
-        self.ingredients = ingredients.copy()
 
-    def init_name(self, recipe: str) -> str:
-        for name in self.open_ingredients(recipe):
-            print(name)
-            if name.upper().find("recipe".upper()) != -1:
-                return self.open_ingredients(recipe).__next__
+    def __init__(self, recipe_name: str) -> None:
+        self.name = self.get_name_of_recipe(recipe_name)
+        self.kind = self.get_kind_of_recipe(recipe_name)
+        self.total_time = self.get_total_time(recipe_name)
+        self.servings = self.get_servings(recipe_name)
+        self.ingredients = self.get_ingredients(recipe_name)
+
+    def show(self):
+        print('{} ({})'.format(self.name, self.kind))
+        print('Preparation time: {} / {}'.format(self.total_time, self.servings))
+        print('Ingredients: ({} items)'.format(len(self.ingredients)))
+        for e, i in enumerate(self.ingredients):
+            print('({:<2}) - {}'.format(e+1, i))
+
 
     @classmethod
     def open_ingredients(cls, recipe) -> str:
@@ -160,11 +163,12 @@ class Food:
 
 
 def main():
-    # for line in open_ingredients('recipe1'):
-    #     print(line, end='')
-    # x = get_kind_of_recipe('recipe1')
-    x = Food.get_kind_of_recipe('recipe3')
-    print(x)
+    recipe_1 = Food('recipe1')
+    var_1 = 0
+    var_2 = 1
+
+    # print([k for k, v in locals().items() if k == 'var_1'][0])
+    recipe_1.show()
     pass
 
 
