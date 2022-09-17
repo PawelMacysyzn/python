@@ -16,11 +16,17 @@ def startCalc(path):
 
 # startCalc('Notepad')
 # startCalc('putty')
-# startCalc('calc.exe')
+
 
 # code = r'C:\Users\pmacyszyn_adm\AppData\Local\Programs\Microsoft VS Code\Code.exe'
 # startCalc(code)
 
-chrome = r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-startCalc(chrome)
+# chrome = r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+# startCalc(chrome)
 
+
+def main():
+    startCalc('calc.exe')
+
+if __name__ == '__main__':
+    main()
