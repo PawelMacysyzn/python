@@ -27,6 +27,7 @@ def startCalc(path):
 
 def main():
     startCalc('calc.exe')
+    time.sleep(5)
 
 if __name__ == '__main__':
     main()
