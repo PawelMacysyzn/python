@@ -118,7 +118,12 @@ print(*[k for k, v in locals().items() if k == 'var_1' and v == var_1])
 # ------------------------------------------
 
 
+# ------------------------------------------
+# upgrade
+# pip install --upgrade matplotlib
 
-
+# shwo show version
+#  pip show matplotlib
+# ------------------------------------------
 
  
