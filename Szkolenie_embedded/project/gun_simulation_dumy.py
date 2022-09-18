@@ -21,26 +21,20 @@ camera_height = 32  # in meters, height at which the camera is suspended from th
 # triangle_2 = alfa_2 + beta_2 + 90° = 180° and alfa_2 + beta_2 = 90°
 
 
-def symulate_gun_by_alfa(alfa_x, alfa_y):
-    px_x = (alfa_x * width) / 180
-    px_y = ((90 - alfa_y) * height) / 90
-    return px_x, px_y
-
-
 def oneclick(event):
     x1, y1 = event.xdata, event.ydata
     # for x1
-    alfa_1_orgon = ((180*x1)/width)
     if x1 > width/2:
-        alfa_1 = ((180*x1)/width) - 90  # -90° - +90°
+        alfa_1 = ((70*x1)/width) - 35  # -35° - +35°
     elif x1 < width/2:
-        alfa_1 = ((180*x1)/width) - 90  # -90° - +90°
+        alfa_1 = ((70*x1)/width) - 35  # -35° - +35°
     else:
-        alfa_1 = 0                     # -90° - +90°
+        alfa_1 = 0                     # -35° - +35°
 
     # for y1
     # alfa_2 + beta_2 = 90° => alfa_2 = 90° - beta_2
     alfa_2 = 90 - ((90*y1)/height)  # 0° - 90° really is beta
+    
     print('-'*35)
     print('{:6.1f} x {:<5.1f} px'.format(x1, y1))
     print('{:5.1f}° x {:<5.1f}°'.format(alfa_1, alfa_2))
@@ -53,12 +47,11 @@ def oneclick(event):
     print('{:6.1f} x {:<4.1f} m'.format(tract_x, tract_y))
     tract_x_y = math.sqrt(math.pow(tract_x, 2) + math.pow(tract_y, 2))
     print('Total:  {:<5.1f} m'.format(tract_x_y))
-    print("symulate_gun_by_alfa:", '\n',
-          symulate_gun_by_alfa(alfa_1_orgon, alfa_2))
-
 
 # my
 fig.canvas.mpl_connect('button_press_event', oneclick)
+
+
 
 
 # x, y = 100, 100
