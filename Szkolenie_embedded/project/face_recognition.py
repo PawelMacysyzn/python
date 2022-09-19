@@ -47,10 +47,12 @@ def detect_faces_image(image):
     cv2.waitKey()
 
 
-# camera = cv2.VideoCapture(0)
-# detect_faces_camera(camera)
+
 image_1 = cv2.imread(
     r'C:\Users\pmacyszyn_adm\Documents\python\python\Szkolenie_embedded\project\image_to_work_with\squid_game.png')
 image_2 = cv2.imread(
     r'C:\Users\pmacyszyn_adm\Documents\python\python\Szkolenie_embedded\project\image_to_work_with\opencv_face_reco_more_data.png')
-detect_faces_image(image_2)
+
+
+detect_faces_camera(cv2.VideoCapture(0))
+# detect_faces_image(image_2)
