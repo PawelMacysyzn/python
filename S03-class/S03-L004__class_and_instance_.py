@@ -61,6 +61,8 @@ List of class attributes with values:
       '__weakref__': <attribute '__weakref__' of 'Car' objects>, '__doc__': None}
 """
 
+
+
 print("List of instance attributes with valuses:",dir(car_01))
 '''
 List of instance attributes with valuses: ['GetInfo', 'IsDamaged', '__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'brand', 'isAirBagOK', 'isMechanicOK', 'isPaintingOK', 'listOfCars', 'model', 'numberOfCars']
@@ -72,3 +74,7 @@ List of class attributes with values:     ['GetInfo', 'IsDamaged', '__class__', 
 
 # Value taken from instance: 2 Value taken from class 2
 print('Value taken from instance:', car_01.numberOfCars, 'Value taken from class', Car.numberOfCars)
+
+print('-'*36)
+x = Car.__dict__
+print(x)

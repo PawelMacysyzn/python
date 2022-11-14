@@ -127,3 +127,27 @@ print(*[k for k, v in locals().items() if k == 'var_1' and v == var_1])
 # ------------------------------------------
 
  
+ # ------------------------------------------
+
+    # singleton python  // wzorzec projectowy singleton, dany modół moze mieć jedną instację 
+
+
+print(id(None)) # 140735472637944
+print(id(None)) # 140735472637944
+print(id(None)) # 140735472637944
+print(id(False)) # 140735472585608
+print(id(False)) # 140735472585608
+print(id(False)) # 140735472585608
+
+print(id(True)) # 140735472585576
+print(id(True)) # 140735472585576
+print(id(True)) # 140735472585576
+
+print(id(3)) # 2261245493552
+print(id(3)) # 2261245493552
+print(id(3)) # 2261245493552
+
+
+
+
+ # ------------------------------------------

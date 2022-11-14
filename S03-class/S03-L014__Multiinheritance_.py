@@ -79,3 +79,7 @@ print(CarSpecialist.__mro__)
 '''
 (<class '__main__.CarSpecialist'>, <class '__main__.Car'>, <class '__main__.Specialist'>, <class 'object'>)
 '''
+
+
+
+# MRO - method resolution order  !

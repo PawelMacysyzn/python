@@ -86,8 +86,7 @@ print(PromoCake.__mro__)
 
 
 
-
-
+# MRO - method resolution order  !
 
 
 

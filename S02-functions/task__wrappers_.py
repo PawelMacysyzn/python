@@ -16,6 +16,15 @@ def wrapper_time(a_function):
     return a_wrapped_function
 
 
+def wrapper_delay(a_function):
+    def a_wrapped_function(*args, **kwargs):
+      
+        time.sleep(5)
+        return a_function(*args, **kwargs)
+    return a_wrapped_function
+
+
+            
 def get_sequence(n):
 
     if n <= 0:
@@ -27,6 +36,7 @@ def get_sequence(n):
         return v
 
 
+@wrapper_delay
 @wrapper_time
 def wrapped_get_sequence(x):
     return get_sequence(x)
