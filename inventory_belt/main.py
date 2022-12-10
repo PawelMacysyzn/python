@@ -3,48 +3,71 @@ import random
 from typing import List
 
 
-def inventory_bar_optimal_way(start: int, target: int, sieze: int) -> int:
-    pass
+class InventoryBar:
 
-def inventory_bar_optimal_way_from_random(list: List[str]) -> None:
+    @staticmethod
+    def optimal_way(start: int, target: int, size: int) -> int:
+        '''
+        Returns way_value where sign is the direction and value is the number of pots to go
+        '''
+        list = Dummy_Inventory.dummy_list_inventory(size)
 
-    bar_len = len(list)
-    
-    # if bar_len % 2 == 0:
-    #     pass # even 
-    # else:
-    #    pass # odd  
+        if start == target:
+            raise Exception(
+                "Sorry, the destination cannot be the same as the starting point")
 
-    start = list.index("[_]")
-    target = list.index("[x]")
+        list[start] = "[_]"
+        list[target] = "[x]"
 
+        way_name, way_value, start, target = InventoryBar.calculate_optimal_way(
+            list)
 
-    way_value = target - start
-    way_name = None
+        return way_value
 
+    @staticmethod
+    def show_optimal_way_from_random(list: List[str]) -> None:
 
-    if abs(way_value) > bar_len/2:
+        way_name, way_value, start, target = InventoryBar.calculate_optimal_way(
+            list)
+        print(*list, f'-> {way_name}, {abs(way_value)}')
+        print(
+            f"{len(list)} elem, start {start}, target {target}  ({target}-{start}) -> {way_value}")
 
-        if way_value > 0:
-            way_value = abs(way_value) - bar_len
+    @staticmethod
+    def calculate_optimal_way(list: List[str]) -> tuple:
+        '''
+        # Return:
+        way_name  : str  -> ('both', 'right', 'left')
+        way_value : int
+        start     : int  -> list.index("[_]")
+        target    : int  -> list.index("[x]")
+        '''
+
+        bar_len = len(list)
+        start = list.index("[_]")
+        target = list.index("[x]")
+
+        way_value = target - start
+        way_name = None
+
+        if abs(way_value) > bar_len/2:
+
+            if way_value > 0:
+                way_value = abs(way_value) - bar_len
+            else:
+                way_value = way_value + bar_len
+
+        if abs(way_value) == bar_len/2:
+            way_name = 'both'
         else:
-            way_value = way_value + bar_len
+            if way_value > 0:
+                way_name = 'right'
+            elif way_value < 0:
+                way_name = 'left'
+            else:
+                raise Exception("Sorry, no move")
 
-
-    if abs(way_value) == bar_len/2:
-        way_name = 'both'
-    else:
-        if way_value > 0:
-            way_name = 'right'
-        elif way_value < 0:
-            way_name = 'left'
-        else:
-            raise Exception("Sorry, no move")      
-
-
-    print(*list, f'-> {way_name}, {abs(way_value)}')
-    print(f"{bar_len} elem, start {start}, target {target}  ({target}-{start}) -> {way_value}")
-
+        return way_name, way_value, start, target
 
 
 class Dummy_Inventory:
@@ -225,8 +248,11 @@ Fault
 '''
 
 
+# for _ in range(1000):
+#     InventoryBar.show_optimal_way_from_random(
+#         Dummy_Inventory.dummy_random_generate_inventory(11))
+#     print()
 
 
-for _ in range(1000):
-    inventory_bar_optimal_way_from_random(Dummy_Inventory.dummy_random_generate_inventory(11))
-    print()
+# [_] [1] [2] [3] [4] [5] [6] [7] [8] [9] [x] -> left, 1
+print(InventoryBar.optimal_way(0, 10, 11))
