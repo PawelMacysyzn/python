@@ -1,6 +1,98 @@
 # A program to select a tool from the inventory bar in the most optimal way
 import random
+import time
 from typing import List
+from plot import do_plot
+
+
+class GraphicInventoryBar:
+
+    @staticmethod
+    def show_animation_in_console(start: int, target: int, size: int) -> None:
+        '''
+        Show an animation of thru around the inventory on the console
+
+        start: int  -> The starting point, it cannot be the same as the ending point
+        target: int -> End point
+        size: int   -> Size of inventory
+        '''
+
+        way_value, list = InventoryBar.optimal_way_and_list(
+            start, target, size)
+
+        print('-'*55)
+        print(*list)
+
+        GraphicInventoryBar.method_orgin_for_console(start, way_value, list)
+
+    @staticmethod
+    def show_animation_in_plot(start: int, target: int, size: int) -> None:
+        '''
+        Show an animation of thru around the inventory on the plot
+
+        start: int  -> The starting point, it cannot be the same as the ending point
+        target: int -> End point
+        size: int   -> Size of inventory
+        '''
+
+        way_value, list = InventoryBar.optimal_way_and_list(
+            start, target, size)
+
+        do_plot(list)
+        print(list)
+
+        GraphicInventoryBar.method_orgin_for_plot(start, way_value, list)
+
+    @staticmethod
+    def method_orgin_for_console(start: int, way_value: int, list: List[str]):
+
+        if way_value > 0:
+            direction = 1
+            pointer = '->'
+        elif way_value < 0:
+            direction = -1
+            pointer = '<-'
+
+        for _ in range(abs(way_value)):
+            time.sleep(1)
+            list, next = GraphicInventoryBar.method_for_step(
+                start, direction, list)
+            start = next
+            print(*list, pointer)
+
+    @staticmethod
+    def method_orgin_for_plot(start: int, way_value: int, list: List[str]):
+
+        if way_value > 0:
+            direction = 1
+        elif way_value < 0:
+            direction = -1
+
+        for _ in range(abs(way_value)):
+            list, next = GraphicInventoryBar.method_for_step(
+                start, direction, list)
+            start = next
+            do_plot(list)
+
+    @staticmethod
+    def method_for_step(start: int, step_value: int, list: List[str]) -> tuple:
+
+        last_index = len(list) - 1
+
+        # Convert a pointer to a number
+        list[start] = f"[{list.index('[_]')}]"
+
+        next = start + step_value
+
+        if next < 0:
+            next = last_index
+        elif next > last_index:
+            next = 0
+
+        # Convert a pointer to a number
+        list[next] = '[_]'
+
+        return list, next
 
 
 class InventoryBar:
@@ -9,6 +101,21 @@ class InventoryBar:
     def optimal_way(start: int, target: int, size: int) -> int:
         '''
         Returns way_value where sign is the direction and value is the number of pots to go
+
+        start: int  -> The starting point, it cannot be the same as the ending point
+        target: int -> End point
+        size: int   -> Size of inventory
+        '''
+        return InventoryBar.optimal_way_and_list(start, target, size)[0]
+
+    @staticmethod
+    def optimal_way_and_list(start: int, target: int, size: int) -> tuple:
+        '''
+        Returns List[str] and way_value where sign is the direction and value is the number of pots to go
+
+        start: int  -> The starting point, it cannot be the same as the ending point
+        target: int -> End point
+        size: int   -> Size of inventory
         '''
         list = Dummy_Inventory.dummy_list_inventory(size)
 
@@ -22,11 +129,16 @@ class InventoryBar:
         way_name, way_value, start, target = InventoryBar.calculate_optimal_way(
             list)
 
-        return way_value
+        return way_value, list
 
     @staticmethod
-    def show_optimal_way_from_random(list: List[str]) -> None:
+    def show_optimal_way_from_random(size: int) -> None:
+        '''
+        Generates a graphical representation of the bar in the console, with random start and target parameters
 
+        size: int   -> Size of inventory
+        '''
+        list = Dummy_Inventory.dummy_random_generate_inventory(size)
         way_name, way_value, start, target = InventoryBar.calculate_optimal_way(
             list)
         print(*list, f'-> {way_name}, {abs(way_value)}')
@@ -254,5 +366,38 @@ Fault
 #     print()
 
 
-# [_] [1] [2] [3] [4] [5] [6] [7] [8] [9] [x] -> left, 1
-print(InventoryBar.optimal_way(0, 10, 11))
+# # [_] [1] [2] [3] [4] [5] [6] [7] [8] [9] [x] -> left, 1
+# print(InventoryBar.optimal_way(0, 10, 11))
+
+
+# GraphicInventoryBar.show_animation_in_console(0, 8, 11)
+'''
+[_] [1] [2] [3] [4] [5] [6] [7] [x] [9] [10]
+[0] [1] [2] [3] [4] [5] [6] [7] [x] [9] [_] <-
+[0] [1] [2] [3] [4] [5] [6] [7] [x] [_] [10] <-
+[0] [1] [2] [3] [4] [5] [6] [7] [_] [9] [10] <-
+'''
+
+# GraphicInventoryBar.show_animation_in_console(2, 8, 11)
+'''
+[0] [1] [_] [3] [4] [5] [6] [7] [x] [9] [10]
+[0] [_] [2] [3] [4] [5] [6] [7] [x] [9] [10] <-
+[_] [1] [2] [3] [4] [5] [6] [7] [x] [9] [10] <-
+[0] [1] [2] [3] [4] [5] [6] [7] [x] [9] [_] <-
+[0] [1] [2] [3] [4] [5] [6] [7] [x] [_] [10] <-
+[0] [1] [2] [3] [4] [5] [6] [7] [_] [9] [10] <-
+'''
+
+# GraphicInventoryBar.show_animation_in_console(2, 7, 10)
+'''
+[0] [1] [_] [3] [4] [5] [6] [x] [8] [9]
+[0] [1] [2] [_] [4] [5] [6] [x] [8] [9] ->
+[0] [1] [2] [3] [_] [5] [6] [x] [8] [9] ->
+[0] [1] [2] [3] [4] [_] [6] [x] [8] [9] ->
+[0] [1] [2] [3] [4] [5] [_] [x] [8] [9] ->
+[0] [1] [2] [3] [4] [5] [6] [_] [8] [9] ->
+'''
+
+# showing animation
+# GraphicInventoryBar.show_animation_in_plot(0, 8, 11)
+GraphicInventoryBar.show_animation_in_plot(2, 7, 10)
