@@ -400,4 +400,8 @@ Fault
 
 # showing animation
 # GraphicInventoryBar.show_animation_in_plot(0, 8, 11)
-GraphicInventoryBar.show_animation_in_plot(2, 7, 10)
+# GraphicInventoryBar.show_animation_in_plot(2, 7, 10)
+
+
+
+print(Dummy_Inventory.dummy_random_generate_inventory(22))
