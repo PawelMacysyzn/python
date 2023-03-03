@@ -1,12 +1,18 @@
+##################################################################
 # a program designed for name renaming of files
+# File is used to rename the file in the selected location (PATH)
+##################################################################
 
 from hashlib import new
 import os
 
+##################################################################
 
-PATH = r'C:\Users\pmacyszyn_adm\Documents\python\python\S03-class'
-FIND = 'S02-'
-REPLACE = 'S03-'
+PATH = r'C:\Users\pmacyszyn_adm\Documents\HTML_CSS_JS\HTML_CSS_JS\x_ATOTECH\GENERATED REPORT\REPORTS'
+FIND = 'Style.js'
+REPLACE = 'Style.xml'
+
+##################################################################
 
 
 def change_file_name_in_dir(path, find, replace):
