@@ -12,6 +12,7 @@ print("my_list: ",type(my_list)) # my_list:  <class 'list'>
 print("--"*36)
 
 print(my_list[:])          # [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+print(my_list[1:])         # [1, 2, 3, 4, 5, 6, 7, 8, 9]
 print(my_list[:6])         # [0, 1, 2, 3, 4, 5]
 print(my_list[:-2])        # [0, 1, 2, 3, 4, 5, 6, 7]
 print(my_list[5:7])        # [5, 6]
