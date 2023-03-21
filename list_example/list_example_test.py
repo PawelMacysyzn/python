@@ -2,6 +2,8 @@
 import unittest
 from list_example import SingleLinkedList, Node
 
+print('-'*100)
+
 
 class TestSingleLinkedList(unittest.TestCase):
 
@@ -133,34 +135,67 @@ class TestSingleLinkedList(unittest.TestCase):
         self.assertTrue((nodeone.next is nodefour)
                         and (nodefour.next is None))
 
-    # def test_remove_on_list_with_only_one_element_but_last_element_is_to_be_removed(self):
+    def test_remove_on_list_with_only_one_element_but_last_element_is_to_be_removed(self):
 
-    #     # Arrange
+        # Arrange
 
-    #     sll = SingleLinkedList()
-    #     nodeone = Node(2)
+        sll = SingleLinkedList()
+        nodeone = Node(2)
 
-    #     sll.head = nodeone
+        sll.head = nodeone
 
-    #     # Act
-    #     # import pdb; pdb.set_trace()
-    #     sll.remove(2)
+        # Act
+        # import pdb; pdb.set_trace()
+        sll.remove(2)
 
-    #     # Assert
-    #     self.assertTrue(sll.head is None)
+        # Assert
+        self.assertTrue(sll.head is None)
 
-    # def testt_remove_but_not_without_removing(self):
+    def testt_remove_but_not_without_removing(self):
 
-    #     # Arrange
+        # Arrange
 
-    #     sll = SingleLinkedList()
-    #     nodeone = Node(1)
+        sll = SingleLinkedList()
+        nodeone = Node(1)
 
-    #     sll.head = nodeone
+        sll.head = nodeone
 
-    #     # Act
-    #     sll.remove(2)
+        # Act
+        # import pdb; pdb.set_trace()
+        sll.remove(2)
 
-    #     # Assert
-    #     self.assertTrue((sll.head is None)
-    #                     and)
+        # Assert
+        self.assertTrue((sll.head is nodeone) and (nodeone.next is None))
+
+    def testt_remove_but_empty_list(self):
+
+        # Arrange
+
+        sll = SingleLinkedList()
+
+        # Act
+        # None
+
+        # Assert
+        with self.assertRaises(IndexError):
+            sll.remove(2)
+
+    def test_deleting_in_a_list_with_all_the_same_items_to_be_removed(self):
+
+        # Arrange
+
+        sll = SingleLinkedList()
+        nodeone = Node(2)
+        nodetwo = Node(2)
+        nodethre = Node(2)
+
+        sll.head = nodeone
+        nodeone.next = nodetwo
+        nodetwo.next = nodethre
+
+        # Act
+        # import pdb; pdb.set_trace()
+        sll.remove(2)
+
+        # Assert
+        self.assertTrue(sll.head is None)
